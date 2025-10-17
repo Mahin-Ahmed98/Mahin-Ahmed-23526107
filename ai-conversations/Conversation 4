@@ -1,0 +1,309 @@
+Me: Why do we need perth's weather function?
+
+
+AI: Good question 👍 — the reason we need a Perth’s weather function (like get_weather("Perth") or similar) is to make our program dynamic and location-aware instead of hard-coded. Here’s why that matters:
+
+🌦️ 1. To Fetch Real-Time Weather Data
+
+The function allows your program to connect to an API (like wttr.in or OpenWeatherMap) and retrieve current or forecasted weather data for Perth automatically — including temperature, rainfall, humidity, and other conditions.
+Without the function, you’d have to manually enter this information every time.
+
+💡 2. To Automate Analysis and Visualization
+
+Functions like get_weather("Perth") let you use the returned data in your Python code — for example, plotting graphs of temperature trends, rainfall changes, or comparing multiple cities.
+This helps when building dashboards or visualizations for climate, agriculture, tourism, or transport systems.
+
+🧩 3. To Reuse Code Efficiently
+
+Having a separate function (like get_weather(location)) makes the code modular and reusable.
+You can simply call:
+
+get_weather("Perth")
+get_weather("Sydney")
+
+
+and get data for each city — no need to rewrite API logic.
+
+🔄 4. To Integrate with Other Programs
+
+If your project (e.g., your weather visualization or system analysis task) uses Perth’s weather in other features — like predictions, alerts, or environmental reports — this function serves as the data source feeding those components.
+
+Me: How can we use regular expression in NLP?
+
+AI: Excellent question — regular expressions (often called regex) are powerful tools in Natural Language Processing (NLP) for handling text cleaning, extraction, and pattern recognition.
+
+Let’s break this down clearly 👇
+
+🧠 What Are Regular Expressions?
+
+A regular expression (regex) is a sequence of characters that defines a pattern for searching or manipulating text.
+In NLP, regex helps you find, clean, or segment specific linguistic patterns (like emails, dates, or words).
+
+Example:
+
+import re
+
+text = "Email me at mahin.ahmed@curtin.edu.au"
+pattern = r"\b[\w\.-]+@[\w\.-]+\.\w+\b"
+email = re.findall(pattern, text)
+print(email)
+
+
+🔹 Output → ['mahin.ahmed@curtin.edu.au']
+👉 This extracts the email address from text.
+
+🧹 1. Text Cleaning and Preprocessing
+
+Regex is commonly used for data cleaning in NLP before analysis or model training:
+
+Remove HTML tags: re.sub(r"<.*?>", "", text)
+
+Remove non-alphabetic characters: re.sub(r"[^a-zA-Z\s]", "", text)
+
+Normalize whitespace: re.sub(r"\s+", " ", text)
+
+Example:
+
+text = "Hello!!!   My name is <b>Mahin</b>."
+clean = re.sub(r"<.*?>", "", text)
+clean = re.sub(r"[^a-zA-Z\s]", "", clean)
+print(clean)  # Output: Hello My name is Mahin
+
+🔍 2. Tokenization (Splitting Text)
+
+Regex can split text into words or sentences:
+
+text = "Dr. Jha said: NLP is fun! Isn't it?"
+tokens = re.split(r"[.!?]\s*", text)
+print(tokens)
+
+
+🔹 Output → ['Dr. Jha said: NLP is fun', "Isn't it", '']
+
+🧾 3. Pattern Extraction
+
+You can use regex to extract:
+
+Dates: \b\d{1,2}/\d{1,2}/\d{4}\b
+
+Phone numbers: \+?\d{1,3}[-.\s]?\d{3}[-.\s]?\d{4,6}
+
+Hashtags or mentions: #\w+ or @\w+
+
+Example:
+
+text = "Today's meeting is on 17/10/2025. Call +61-412-345-678."
+dates = re.findall(r"\b\d{1,2}/\d{1,2}/\d{4}\b", text)
+phones = re.findall(r"\+?\d{1,3}[-.\s]?\d{3}[-.\s]?\d{4,6}", text)
+print(dates, phones)
+
+💬 4. Named Entity Recognition (Simple Heuristics)
+
+Before using deep NLP models, regex can help identify entities:
+
+Capitalized names: r"\b[A-Z][a-z]+ [A-Z][a-z]+\b"
+
+Monetary values: r"\$\d+(?:,\d{3})*(?:\.\d{2})?"
+
+Example:
+
+text = "John Doe paid $2,300 for the MacBook."
+names = re.findall(r"\b[A-Z][a-z]+ [A-Z][a-z]+\b", text)
+money = re.findall(r"\$\d+(?:,\d{3})*(?:\.\d{2})?", text)
+print(names, money)
+
+🧩 5. Rule-Based NLP Systems
+
+Regex helps define grammatical or lexical rules for:
+
+POS tagging (e.g., detect verbs ending in “-ing” → r"\b\w+ing\b")
+
+Detecting negations (“not happy”, “no change”)
+
+Extracting keywords or n-grams
+
+✅ Summary
+Task	Example Regex Use
+Text cleaning	Remove punctuation, tags
+Tokenization	Split sentences or words
+Entity extraction	Dates, names, money
+Pattern matching	Emails, hashtags
+Rule-based NLP	Detect grammar or negation patterns
+
+Me: How many attributes will return from this function?
+
+
+AI: Let’s break down what attributes it returns 👇
+
+🌦️ Typical Return Structure
+
+A get_weather() function (whether from your custom code or an API like wttr.in or fetch_my_weather) usually returns a dictionary (JSON object) that includes several attributes (keys) describing Perth’s weather.
+
+Here’s an example of what get_weather("Perth") might return:
+
+{
+  "location": "Perth, Australia",
+  "temperature_C": 23,
+  "feels_like_C": 22,
+  "min_temp_C": 18,
+  "max_temp_C": 27,
+  "humidity": 60,
+  "precipMM": 0.0,
+  "wind_kph": 15,
+  "wind_dir": "SW",
+  "description": "Partly cloudy",
+  "forecast": [
+      {"date": "2025-10-17", "min_temp_C": 18, "max_temp_C": 27, "precipMM": 0.0},
+      {"date": "2025-10-18", "min_temp_C": 17, "max_temp_C": 25, "precipMM": 0.3}
+  ]
+}
+
+🧩 Attributes (Main Keys)
+
+So this function will return around 10–12 main attributes, depending on how it’s implemented:
+
+Attribute	Description
+location	City or region name (e.g., Perth, Australia)
+temperature_C	Current temperature in Celsius
+feels_like_C	Perceived temperature (“feels like”)
+min_temp_C	Minimum forecast temperature
+max_temp_C	Maximum forecast temperature
+humidity	Current humidity percentage
+precipMM	Precipitation (rainfall) in millimeters
+wind_kph	Wind speed in kilometers per hour
+wind_dir	Wind direction (N, S, E, W, etc.)
+description	Short weather summary (e.g., “Sunny”)
+forecast	List of daily forecast dictionaries (each with date, min_temp_C, max_temp_C, precipMM)
+
+✅ In total: about 10–12 attributes (depending on the data source).
+If your code includes the forecast list, then each forecast day contains 3–4 attributes itself.
+
+
+Me: What is the regular expreesion to match something from the begining?
+
+AI: To match something from the beginning of a string, you use the caret symbol ^ in regular expressions.
+
+✅ Basic Syntax
+^pattern
+
+This tells the regex engine:
+“Match pattern only if it appears at the start of the string.”
+🧩 Example 1 – Match a word at the beginning
+import re
+text = "Perth is a sunny city"
+match = re.match(r"^Perth", text)
+print(bool(match))  # ✅ True
+✔ It returns True because the string starts with "Perth".
+If you try:
+re.match(r"^sunny", text)
+
+It will return None, since "sunny" is not at the beginning.
+🧩 Example 2 – Using re.search()
+You can also use re.search():
+import re
+text = "Perth has great weather."
+if re.search(r"^Perth", text):
+    print("Starts with Perth!")
+
+✅ Output: Starts with Perth!
+🧮 Example 3 – Beginning of a line (multiline)
+If you’re checking multiple lines, use the re.MULTILINE flag:
+text = """Perth is sunny
+Sydney is cooler"""
+matches = re.findall(r"^Sydney", text, re.MULTILINE)
+print(matches)
+
+✅ Output: ['Sydney']
+This finds "Sydney" at the start of a new line, not just the first line.
+
+🔍 Summary
+Symbol	Meaning	Example	Matches
+^	Beginning of the string/line	^Hello	"Hello world" ✅
+$	End of the string/line	world$	"Hello world" ✅
+
+Me: Step by step approach for this function?
+
+AI: Got you. Here’s a clear, step-by-step approach to write a function that checks (and optionally extracts) a pattern from the beginning of a string using regex.
+
+Step-by-step plan
+
+Identify the pattern
+
+Decide what should be at the start (e.g., a fixed word, digits, a date).
+
+Add the beginning anchor ^ to your pattern.
+
+Choose flags (options)
+
+re.IGNORECASE if case shouldn’t matter.
+
+re.MULTILINE if you want to treat each line’s start as a “beginning”.
+
+re.UNICODE (default in Py3) usually fine for accented letters.
+
+Compile the regex (optional but good for reuse)
+
+Compiling once is faster if you’ll call the function many times.
+
+Match against the text
+
+Use pattern.match(text) (starts at index 0) or re.search(r'^...', text, flags).
+
+Return what you need
+
+Return a boolean (starts or not), or the matched groups for extraction.
+
+Handle edge cases
+
+Empty string, leading spaces (use ^\s* if you allow them), newline behavior (with/without MULTILINE).
+
+Reference implementation (Python)
+import re
+from typing import Optional, Dict, Any
+
+def starts_with(pattern: str, text: str, *, multiline: bool=False, ignore_case: bool=False) -> Optional[Dict[str, Any]]:
+    """
+    Returns None if no start-match.
+    If matched, returns a dict with:
+      - 'full': full matched text
+      - 'groups': tuple of captured groups (if any)
+      - 'span': (start, end) of the match
+    """
+    flags = 0
+    if multiline:
+        flags |= re.MULTILINE
+    if ignore_case:
+        flags |= re.IGNORECASE
+
+    # Ensure the pattern is anchored to the beginning
+    anchored = pattern if pattern.startswith('^') else '^' + pattern
+    regex = re.compile(anchored, flags)
+
+    m = regex.search(text)  # or regex.match(text)
+    if not m:
+        return None
+
+    return {
+        'full': m.group(0),
+        'groups': m.groups(),
+        'span': m.span()
+    }
+
+Examples you can paste in
+1) Starts with a fixed word
+starts_with(r"Perth", "Perth is sunny")         # ✅ match
+starts_with(r"sunny", "Perth is sunny")         # ❌ None
+
+2) Starts with a capitalized word
+starts_with(r"[A-Z][a-z]+", "Sydney weather")   # ✅ 'Sydney'
+
+3) Starts with a date like 17/10/2025
+starts_with(r"(\d{1,2})/(\d{1,2})/(\d{4})", "17/10/2025 — report")
+# returns groups: ('17','10','2025')
+
+4) Multiline: match “Sydney” at the beginning of any line
+text = "Perth is sunny\nSydney is cooler"
+starts_with(r"Sydney", text, multiline=True)    # ✅ matches second line start
+
+5) Allow leading spaces before the real start
+starts_with(r"\s*Perth", "   Perth forecast")   # ✅ leading whitespace allowed
