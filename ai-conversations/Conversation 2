@@ -1,0 +1,277 @@
+Me: What is API?
+
+AI: An API (Application Programming Interface) is a set of rules and tools that allows one software application to communicate with another.
+
+Think of it like a menu in a restaurant — the menu (API) tells you what dishes (services) you can order and how to ask for them, but the kitchen (the system behind the API) does all the work and sends you back the result.
+
+🔹 Key Points:
+
+Purpose:
+APIs let different software systems interact. For example, when your weather app shows today’s forecast, it’s getting that data from a weather API.
+
+How It Works:
+
+You send a request to the API (asking for data or an action).
+
+The API processes it and sends back a response (usually in JSON or XML format).
+
+Types of APIs:
+
+Web APIs (HTTP/REST APIs): Used for internet-based applications.
+
+Library APIs: Built into programming libraries for developers.
+
+Operating System APIs: Allow apps to interact with the OS (e.g., Windows API, Android API).
+
+Example:
+
+import requests
+response = requests.get("https://api.openweathermap.org/data/2.5/weather?q=Perth&appid=YOUR_KEY")
+print(response.json())
+
+
+This code calls a weather API to get live weather data for Perth.
+
+Me: What is wttr.inapi?
+
+AI: I think by “wttr.inapi” you meant wttr.in API (or “wttr.in’s API”). Here’s an explanation:
+
+What is wttr.in?
+
+wttr.in is a web service for retrieving weather forecasts via HTTP—especially convenient for terminal / command-line use (with curl, wget, etc.). 
+GitHub
++2
+GitHub
++2
+
+It supports various output formats: ANSI art (for terminals), plain text, HTML, PNG, JSON (for API / programmatic use), and Prometheus metrics. 
+GitHub
++2
+GitHub
++2
+
+Because JSON is supported, wttr.in effectively exposes a simple API interface for weather data. 
+GitHub
++2
+GitHub
++2
+
+How the wttr.in API works
+
+You make an HTTP GET request to the wttr.in endpoint, with a location (city name, coordinates, airport code, etc.) optionally appended.
+
+You can add query parameters and flags to adjust format, units, language, etc. 
+GitHub
++2
+wttr.in
++2
+
+To receive structured data (rather than ASCII art or HTML), you request the JSON format.
+
+Example:
+
+curl "wttr.in/London?format=j1"
+
+
+The format=j1 parameter often yields JSON output (or similar).
+
+There's also a simpler “one-line format” for compact output (e.g. ?format=3). 
+GitHub
++2
+GitHub
++2
+
+Also, wttr.in has a special API endpoint: wttr.in/api which returns a weather report (in text) for a default location. 
+wttr.in
+
+Python / Library support
+
+There is a Python wrapper called pywttr which provides higher-level access to wttr.in’s API, parsing JSON responses, mapping models, etc. 
+pywttr.readthedocs.io
++1
+
+Using pywttr, you can more easily get structured weather data (temperatures, conditions, etc.) rather than parsing raw HTTP responses yourself.
+
+Me: How to fetch data from this API?
+
+AI: Here’s a clear step-by-step guide 👇
+
+🌦️ 1. Basic Command Line (Quick Test)
+
+If you just want to test it quickly, open your terminal or command prompt and type:
+
+curl wttr.in
+
+
+You’ll get an ASCII-style weather report for your current location.
+
+For a specific city:
+
+curl wttr.in/Perth
+
+💡 2. Get JSON Data (for Python or Programs)
+
+To get structured JSON (machine-readable format):
+
+curl wttr.in/Perth?format=j1
+
+
+This will return data like:
+
+{
+  "current_condition": [
+    {
+      "temp_C": "22",
+      "weatherDesc": [{"value": "Partly cloudy"}],
+      "windspeedKmph": "15"
+    }
+  ],
+  "nearest_area": [{"areaName": [{"value": "Perth"}]}],
+  "weather": [...]
+}
+
+🐍 3. Fetch Weather Data Using Python
+
+Here’s a simple example using the requests library:
+
+import requests
+
+# Define the API endpoint
+url = "https://wttr.in/Perth?format=j1"
+
+# Send the GET request
+response = requests.get(url)
+
+# Check if successful
+if response.status_code == 200:
+    data = response.json()  # Parse JSON response
+    current = data['current_condition'][0]
+    print("🌤️ Weather in Perth:")
+    print("Temperature:", current['temp_C'], "°C")
+    print("Condition:", current['weatherDesc'][0]['value'])
+else:
+    print("Error:", response.status_code)
+
+
+✅ Output Example:
+
+🌤️ Weather in Perth:
+Temperature: 22 °C
+Condition: Partly cloudy
+
+⚙️ 4. Customizing the Request
+
+You can add parameters to control what you get:
+
+Parameter	Example	Description
+?format=j1	wttr.in/Perth?format=j1	JSON format
+?format=3	wttr.in/Perth?format=3	One-line summary
+?m	wttr.in/Perth?m	Metric units
+?lang=fr	wttr.in/Paris?lang=fr	Change language
+?T	wttr.in/Perth?T	Display actual temperature instead of “feels like”
+🧠 5. Example Output Formats
+
+Plain text: wttr.in/Perth
+Short summary: wttr.in/Perth?format=3
+JSON API: wttr.in/Perth?format=j1
+
+Me:What will be the return type?
+
+AI: The return type from the wttr.in API depends on the format parameter you use in your request. Let’s break it down:
+
+🧩 1. Default (no format parameter)
+
+Example:
+curl wttr.in/Perth
+Return type: str (plain text)
+You’ll get an ASCII-art style weather display made for humans, not code.
+In Python, if you do:
+response = requests.get("https://wttr.in/Perth")
+print(type(response.text))
+✅ Output → <class 'str'>
+🔹 2. JSON Format (for programming use)
+Example:
+curl wttr.in/Perth?format=j1
+Return type in Python:
+Before parsing: str
+After parsing with .json(): dict
+
+So, if you do:
+response = requests.get("https://wttr.in/Perth?format=j1")
+data = response.json()
+print(type(data))
+✅ Output → <class 'dict'>
+This means the API returns a JSON object, which Python converts into a dictionary.
+🔸 3. Single-line Summary (format=3)
+Example:
+curl wttr.in/Perth?format=3
+Return type: str (a single-line plain text summary)
+
+Example output:
+Perth: 🌤️ +22°C
+
+🧠 Summary Table
+Format Used	Example URL	Return Type	Usage Purpose
+(none)	wttr.in/Perth	str (text)	For human reading in terminal
+?format=3	wttr.in/Perth?format=3	str	One-line summary
+?format=j1	wttr.in/Perth?format=j1	dict (JSON)	For programming & data processing
+So in your Python code, if you want structured weather data you can work with (e.g. access temperature, wind speed, etc.), always use:
+data = response.json()
+✅ data will be a dictionary (key-value pairs).
+
+Me: What is Json?
+
+AI: 
+JSON stands for JavaScript Object Notation.
+It’s a lightweight data format used for storing and exchanging data between systems — especially between a web server and a client (like your Python program or browser).
+
+💬 Think of JSON like this:
+
+It’s a universal way to describe data that both humans and computers can understand easily.
+It looks a bit like a Python dictionary — made up of key–value pairs.
+
+🧠 Example of JSON:
+{
+  "name": "Mahin",
+  "age": 25,
+  "isStudent": true,
+  "courses": ["Database Systems", "Cloud Computing"],
+  "address": {
+    "city": "Perth",
+    "country": "Australia"
+  }
+}
+
+This JSON object contains:
+
+Strings: "Mahin", "Perth"
+
+Numbers: 25
+
+Boolean: true
+
+Array (list): ["Database Systems", "Cloud Computing"]
+
+Nested object: { "city": "Perth", "country": "Australia" }
+
+🔄 JSON vs Python Dictionary
+They look very similar!
+When Python receives JSON data from an API (like wttr.in), you can convert it into a Python dictionary easily:
+import requests
+response = requests.get("https://wttr.in/Perth?format=j1")
+data = response.json()  # Converts JSON → Python dict
+print(data["current_condition"][0]["temp_C"])
+
+
+✅ Here:
+The API returns JSON text
+.json() method parses it into a Python dictionary
+
+🧮 Why JSON is Popular
+Feature	Description
+🪶 Lightweight	Uses simple text — smaller & faster
+🌍 Language-Independent	Works in all programming languages
+👩‍💻 Easy to Read	Human-readable and clean
+🔗 Common in APIs	Almost every web API (weather, Google Maps, etc.) uses JSON
+🧰 Tip:
+To identify JSON quickly, look for curly braces {} and key-value pairs separated by colons : — that’s its signature style!
