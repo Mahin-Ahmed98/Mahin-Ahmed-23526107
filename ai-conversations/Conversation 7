@@ -1,0 +1,113 @@
+Me: import matplotlib.pyplot as plt def create_temperature_visualisation(weather_data, output_type='display'): dates = [day['date'] for day in weather_data['forecast']] min_temps = [float(day['min_temp_C']) for day in weather_data['forecast']] max_temps = [float(day['max_temp_C']) for day in weather_data['forecast']] plt.figure() plt.plot(dates, min_temps, marker='o', label='Min Temp (°C)') plt.plot(dates, max_temps, marker='o', label='Max Temp (°C)') plt.title(f"Temperature Forecast for {weather_data['location']}") plt.xlabel("Date") plt.ylabel("Temperature (°C)") plt.legend() plt.grid(True) if output_type == 'figure': return plt.gcf() else: plt.show() Explain this code portion
+
+
+AI: Let’s break down your Python code step by step — it’s a data visualization function using Matplotlib to display a temperature forecast chart from weather data.
+
+🔹 1. Import statement
+import matplotlib.pyplot as plt
+
+
+This imports the matplotlib.pyplot module — a popular library for plotting graphs in Python.
+You use it to create line charts, bar charts, scatter plots, etc.
+
+🔹 2. Function definition
+def create_temperature_visualisation(weather_data, output_type='display'):
+
+
+Defines a function named create_temperature_visualisation.
+
+It takes:
+
+weather_data → a dictionary containing forecast data.
+
+output_type → optional argument; controls whether to display ('display') or return ('figure') the graph.
+
+🔹 3. Extracting data
+dates = [day['date'] for day in weather_data['forecast']]
+min_temps = [float(day['min_temp_C']) for day in weather_data['forecast']]
+max_temps = [float(day['max_temp_C']) for day in weather_data['forecast']]
+
+
+These list comprehensions extract three lists from the weather data:
+
+dates: all forecast dates.
+
+min_temps: daily minimum temperatures.
+
+max_temps: daily maximum temperatures.
+
+The values are converted to float for numerical plotting.
+
+🔹 4. Creating the figure
+plt.figure()
+
+
+Starts a new figure (chart) to plot on.
+
+This ensures previous plots don’t overlap.
+
+🔹 5. Plotting temperature lines
+plt.plot(dates, min_temps, marker='o', label='Min Temp (°C)')
+plt.plot(dates, max_temps, marker='o', label='Max Temp (°C)')
+
+
+Plots two lines:
+
+One for minimum temperatures.
+
+One for maximum temperatures.
+
+marker='o' draws a small circle at each data point.
+
+label gives names that appear in the legend.
+
+🔹 6. Adding chart details
+plt.title(f"Temperature Forecast for {weather_data['location']}")
+plt.xlabel("Date")
+plt.ylabel("Temperature (°C)")
+plt.legend()
+plt.grid(True)
+
+
+Adds a title using the location from weather_data.
+
+Labels the x-axis as “Date” and y-axis as “Temperature (°C)”.
+
+Displays a legend to identify each line.
+
+Turns on gridlines for readability.
+
+🔹 7. Displaying or returning the plot
+if output_type == 'figure':
+    return plt.gcf()
+else:
+    plt.show()
+
+
+If output_type is 'figure', it returns the current figure object (plt.gcf() = Get Current Figure).
+
+Otherwise, it shows the chart on screen.
+
+✅ In summary
+
+This function:
+
+Takes a weather forecast dictionary (with dates and temps).
+
+Extracts daily min/max temperatures.
+
+Plots them as two lines on a chart.
+
+Displays or returns the figure depending on output_type.
+
+🧠 Example usage:
+weather_data = {
+    "location": "Perth",
+    "forecast": [
+        {"date": "2025-10-19", "min_temp_C": "15", "max_temp_C": "27"},
+        {"date": "2025-10-20", "min_temp_C": "14", "max_temp_C": "25"},
+        {"date": "2025-10-21", "min_temp_C": "16", "max_temp_C": "28"}
+    ]
+}
+
+create_temperature_visualisation(weather_data)
