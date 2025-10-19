@@ -1,3 +1,6 @@
+Tool:ChatGpt
+Date: 2025-10-18
+
 Me: def generate_weather_response(weather_data, parsed, show_graph=True):
     attr = parsed.get("attribute", "summary")
     day_index = int(parsed.get("days_ahead", 0))
