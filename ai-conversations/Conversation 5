@@ -1,3 +1,7 @@
+Tool:ChatGpt
+Date: 2025-10-17
+
+
 Me: Why do we need generate weather response function?
 
 AI: We need the generate_weather_response() function because it acts as the core logic layer between the raw weather data (fetched from an API or file) and the user-friendly response that the program displays.
