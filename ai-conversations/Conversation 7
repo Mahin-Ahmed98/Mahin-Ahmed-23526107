@@ -1,3 +1,7 @@
+Tool:ChatGpt
+Date: 2025-10-19
+
+
 Me: import matplotlib.pyplot as plt def create_temperature_visualisation(weather_data, output_type='display'): dates = [day['date'] for day in weather_data['forecast']] min_temps = [float(day['min_temp_C']) for day in weather_data['forecast']] max_temps = [float(day['max_temp_C']) for day in weather_data['forecast']] plt.figure() plt.plot(dates, min_temps, marker='o', label='Min Temp (°C)') plt.plot(dates, max_temps, marker='o', label='Max Temp (°C)') plt.title(f"Temperature Forecast for {weather_data['location']}") plt.xlabel("Date") plt.ylabel("Temperature (°C)") plt.legend() plt.grid(True) if output_type == 'figure': return plt.gcf() else: plt.show() Explain this code portion
 
 
