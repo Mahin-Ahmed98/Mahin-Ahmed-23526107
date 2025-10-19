@@ -182,56 +182,6 @@ Ollama
 devtutorial.io
 +3
 
-
-Me: import os
-os.environ['HANDS_ON_AI_SERVER'] = 'http://ollama.serveur.au'
-os.environ['HANDS_ON_AI_MODEL'] = 'granite3.2'
-os.environ['HANDS_ON_AI_API_KEY'] = input('Enter your API key: ')
-how to get ollama API key?
-
-
-AI: 1. Ollama Doesn’t Use API Keys
-
-Ollama is a local runtime for large language models (like LLaMA, Mistral, Gemma, etc.).
-It runs entirely on your own machine, so there’s no central “cloud account” or “API key” system.
-You download the Ollama app (or run it via CLI).
-It starts a local API server (usually at http://127.0.0.1:11434).
-You interact with that server directly — no authentication needed.
-So you do not need an API key to use Ollama.
-2. Why That Code Mentions an API Key
-
-Your code snippet looks like it’s from a third-party wrapper or tutorial package (probably hands-on-ai) that can connect to different AI backends — including Ollama and cloud APIs like OpenAI, Hugging Face, etc.
-Example:
-os.environ['HANDS_ON_AI_SERVER'] = 'http://ollama.serveur.au'
-os.environ['HANDS_ON_AI_MODEL'] = 'granite3.2'
-os.environ['HANDS_ON_AI_API_KEY'] = input('Enter your API key: ')
-
-In this context:
-The HANDS_ON_AI_API_KEY line is optional — if you’re connecting to a local Ollama server, you can leave it empty (just press Enter).
-If you were connecting to a remote API (e.g. OpenAI, Anthropic, etc.), that’s when you’d need a real key.
-3. What You Actually Need to Do
-
-If you’ve already installed Ollama:
-Run Ollama locally:
-ollama serve
-
-or just open the Ollama desktop app (it auto-starts the server).
-
-Set your environment like this:
-import os
-os.environ['HANDS_ON_AI_SERVER'] = 'http://127.0.0.1:11434'
-os.environ['HANDS_ON_AI_MODEL'] = 'granite3.2'
-os.environ['HANDS_ON_AI_API_KEY'] = ''  # leave empty
-
-Then you can connect using your library (like hands-on-ai or requests) to send prompts.
-4. Optional: Using Ollama Remotely
-If you do want to expose Ollama to other devices (say on your LAN or cloud VM):
-
-You’d set:
-export OLLAMA_HOST=0.0.0.0:11434
-Then connect to it at http://<your-ip>:11434
-You can secure it with a reverse proxy + API key if you want, but that’s manual (Ollama itself doesn’t handle keys).
-
 Me: !pip install pyinputplus
 import requests
 import matplotlib.pyplot as plt
